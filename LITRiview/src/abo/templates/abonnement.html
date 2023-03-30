@@ -1,0 +1,29 @@
+{% extends 'base_flow.html' %}
+{% block content %}
+<div class="main_container_abo">
+    <h2>suivre d'autres utilisateurs</h2>
+    <!--Formulaire pour recherche et follow un utilisateur-->
+    <form action="{% url 'follow' %}" method="POST" id="follow_form">
+        {% csrf_token %}
+        <input type="text" name="test" placeholder="Nom d'utilisateurs"> 
+        <button type="submit" class="btn" name="follow_btn" form="follow_form">Envoyer</button>
+    </form>
+    <p>{{message}}</p>
+    <h2>Abonnements</h2>
+    <!--Liste des follows et ajout du btn pour unfollow quelqu'un-->
+    <ul>
+        {% for abo in abonnements %}
+            <form action="{% url 'unfollow' %}" method="POST" id="unfollow_form">
+                {% csrf_token %}
+
+                <li>{{ abo.username }} <button type="submit" id="btn-unfollow" name="unfollow_btn" value="{{ abo.id }}" form="unfollow_form">Ne plus suivre</button></li>
+            </form>        
+        {% endfor %}
+    </ul>
+    <!--Liste des followers-->
+    <h2>Abonnés</h2>
+        {% for abo in abonnes %}
+            <li>{{ abo.username }}</li>
+        {% endfor %}
+</div>
+{% endblock content %}

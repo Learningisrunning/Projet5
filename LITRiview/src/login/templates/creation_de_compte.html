@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="create_account">
+    <h1>Creation de compte</h1>
+    <!--formulaire de création de compte-->
+    <form method="post">
+        {{form_creation_compte.as_p}}
+        {% csrf_token %}
+        <div class="btn-create-account">
+            <button class="btn" type="submit">Créer le compte</button>
+            <a href="{% url 'login' %}"><button class="btn" type="button">Retour</button></a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

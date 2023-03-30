@@ -1,0 +1,46 @@
+{% extends 'base_flow.html' %}
+{% block content %}
+<div class="container-critique">
+    <h2>Créer une critique</h2>
+    <form  method="POST" action="{% url 'creer_critique' %}" enctype="multipart/form-data", id="form_rep_demande_critique">
+        {% csrf_token %}
+        {% if numero_critique_rep == None %}
+            <!--Création d'une critique sans répondre à une demande-->
+            <div class="small-container">
+                <p>Livre / Article</p>
+                {{form_demander_critique.as_p}}
+            </div>
+            <div class="small-container">
+                <p>Critique</p>
+                {{ form_creer_critique.as_p }}
+            
+                {{message}}
+                <button class ="btn-send"  type="submit">Envoyer</button>
+            </div>
+        {% else %}
+        <!--Création d'une critique en réponse à une demande-->
+        <div class="very-small-container">
+            <p>Vous êtes en train de poster en réponse à </p>
+            <ul>
+                <div>
+                    <li>{{data.createur}} a demandé une critique</li>
+                    <li>{{data.titre}}</li>
+                    <li>{{data.description}}</li>
+                    <li><img src="{{data.img_livre.url}}"></li>
+                </div>
+                <div id="date_ticket">
+                    <li>{{data.date_creation}}</li>
+                </div>
+            
+            </ul>
+        </div>
+        <div class="small-container">
+            <p>Critique</p>
+            {{ form_creer_critique.as_p }}
+            {{message}}
+            <button type="submit" class ="btn-send" name="critique_numero" value= "{{data.id}} " form="form_rep_demande_critique">Envoyer</button>
+        </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock content %}

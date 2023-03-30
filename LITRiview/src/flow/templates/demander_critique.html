@@ -1,0 +1,14 @@
+{% extends 'base_flow.html' %}
+{% block content %}
+<div class="main-container-tickets">
+    <h2>Créer un ticket</h2>
+    <!--Création d'une demande de critique (form)-->
+    <form method="POST" action="{% url 'demander_critique' %}" enctype="multipart/form-data" id="form-tickets">
+        {{  form_demander_critique.as_p }}
+        {% csrf_token %}
+        {{message}}
+
+        <button class="btn-send-ticket" type="submit">Envoyer</button>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,72 @@
+{% extends 'base_flow.html' %}
+{% block content %}
+<div id ="main-container-posts">
+    <h1>Vos Posts : </h1>
+        <!--Liste des demande de critique faite-->
+        <ul>
+            {% for critique in liste_critique_demandees %}
+            <div class = "medium-container">
+                <form action="{% url 'modify_deleted' %}" method="POST" id="form_modify_deleted_demande">    
+                    {% csrf_token %}
+                    <div class ="flex-mode">
+                        <div class="other-elements">
+                            <li>{{critique.createur}} a publié une critique</li>
+                            <li>{{critique.titre}}</li>
+                            <li><img src="{{critique.img_livre.url}}"></li>
+                        </div>
+                        <div class= "date_creation">
+                            <li>{{critique.date_creation}}</li>
+                        </div>
+                    </div>
+                <!--Ajout des boutons de suppression et modification-->
+                <div class ="btn-mod-del-container">
+                    <button type="submit" class="btn-mod-del" name="modify_btn_demande" value="{{critique.id}}" form = "form_modify_deleted_demande" >Modifier</button>
+                    <button type="submit" class="btn-mod-del" name="deleted_btn_demande" value="{{critique.id}}" form = "form_modify_deleted_demande">Supprimer</button>
+                </div>
+                </form>
+            </div>
+            {% endfor %}
+        </ul>
+    <h2>critiques crées</h2>
+        <!--Liste des critique créées-->
+        <ul>
+        {% for critique_cree in liste_critique_crees %}
+        <div class = "medium-container">
+            <form action="{% url 'modify_deleted' %}" method="POST" id="form_modify_deleted_cree">
+                {% csrf_token %}
+                <div class="flex-mode-third">
+                    <div class="other-element-third">
+                        <li>{{critique_cree.createur}} a publié une critique</li>
+                        <li>{{critique_cree.titre}} - {{critique_cree.note}}</li>
+                        <li>{{critique_cree.commentaire}}</li>
+                    </div>
+                    <div class="date_creation-third">
+                        <li>{{critique_cree.date_creation}}</li>
+                    </div>
+                </div>
+                {% for critique in critique_demandee%}
+                    {% if critique.reponse_critique.id == critique_cree.id %}
+                        <div class ="flex-mode-seconde">
+                            <div class="other-elements-second">
+                                <li>Ticket - {{critique.createur}}</li>
+                                <li>{{critique.titre}}</li>
+                                <li><img src="{{critique.img_livre.url}}"></li>
+                            </div>
+                            <div class= "date_creation">
+                                 <li>{{critique.date_creation}}</li>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                   
+            <!--Ajout des boutons de suppression et modification-->
+            <div class ="btn-mod-del-container">
+                <button type="submit"  class="btn-mod-del" name="modify_btn_cree" value="{{critique_cree.id}}" form = "form_modify_deleted_cree" >Modifier</button>
+                <button type="submit"  class="btn-mod-del" name="deleted_btn_cree" value="{{critique_cree.id}}" form = "form_modify_deleted_cree">Supprimer</button>
+            </div>
+        </form>
+    </div>
+        {% endfor %}
+        </ul>
+</div>
+{% endblock content %}

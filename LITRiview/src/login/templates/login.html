@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class = "login_main_block">
+
+    <!--Btn pour aller à la page création de compte-->
+    <div class ="login_block" id="block_register">
+        <h2>Inscrivez-vous maintenant</h2>
+        <a href="{% url 'creation_compte' %}"><button class="btn" type="button">S'inscrire</button></a>
+    </div>
+
+    <!--Formulaire de connexion-->
+    <div class ="login_block" id="block_connection">
+        <h1>Connectez-vous</h1>
+        <p>{{ message }}</p>
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button class="btn" id ="btn-connection" type ="submit">Se connecter</button>
+        </form>
+    </div>
+
+   
+</div>
+{% endblock %}

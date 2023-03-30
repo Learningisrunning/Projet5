@@ -1,0 +1,81 @@
+
+.login_main_block
+{
+    display: flex;
+    width: 100%;
+    
+}
+
+
+.login_block
+{
+    max-width: 400px;
+    max-height: 400px;
+    margin: auto;
+   
+}
+
+.btn
+{
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10%;
+    padding: 8px;
+    width: 130px;
+    cursor: pointer;
+}
+
+#btn-connection
+{
+    position: relative;
+    right: -67px;
+}
+#block_register 
+{
+   text-align: center;
+}
+
+#block_connection input
+{
+    text-align: center;
+    width: 400px;
+    height: 30px;
+}
+
+#block_connection h1
+{
+    
+    margin-bottom: 50px;
+}
+#block_connection
+{
+    text-align: center;
+}
+.create_account 
+{
+    text-align: center;
+}
+.create_account input
+{
+    text-align: center;
+    width: 350px;
+    height: 30px;
+}
+.create_account .helptext
+{
+    display: none;
+}
+.create_account label
+{
+    display: none;
+}
+.create_account ul
+{
+    color:red;
+    list-style:none;
+}
+.btn-create-account
+{
+    position: relative;
+    right: -46px;
+}

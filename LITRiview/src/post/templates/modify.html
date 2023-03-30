@@ -1,0 +1,56 @@
+{% extends 'base_flow.html' %}
+{% block content %}
+<div class="main-container-modify">
+    <h2> modification de la publication</h2>
+    {% if critique_demandee.reponse_critique.id != None and form.img_livre == None %}
+    <div class="ticket-demande">
+            <p>Vous êtes en train de poster en réponse à</p>
+            <form  method="POST" action="{% url 'register_modifications' %}" enctype="multipart/form-data", id="form_modif_rep_demande_critique">
+                {% csrf_token %}
+            <!--Affichage de la demande lié à la critique que l'on souhaite modifier-->
+            <ul>
+                <div class="ticket-elements">
+                    <div class="main-elements">
+                        <li>{{critique_demandee.titre}}</li>
+                        <li>{{critique_demandee.description}}</li>
+                        <li><img src="{{critique_demandee.img_livre.url}}"></li>
+                    </div>
+                    <div class="ticket-date">
+                        <li>{{critique_demandee.date_creation}}</li>
+                    </div>
+                </div>
+            </ul>
+    </div>
+    <!--Critique que l'on souhaite modifier-->
+    <div class = "answer-ticket">
+        <p>Critique</p>
+            {{form.as_p}}
+        <button type="submit" id="btn-register-change-place" class="btn-register-changes"  form="form_modif_rep_demande_critique" name="btn_register_creer" value ="{{critique_demandee.reponse_critique.id}}">Enregistrer</button>
+        </form>
+    </div>
+    {% else %}
+        <!--Demande de critique que l'on souhaite modifier-->
+        <form  method="POST" action="{% url 'register_modifications' %}" enctype="multipart/form-data", id="form_modif_rep_demande_critique">
+            <p>
+                <label for="id_titre_demande">Titre</label>
+                <input type="text" name="titre_demande" value="{{data.titre_demande}}" required id="id_titre_demande">
+            </p>
+            <p>
+                <label for="id_description">Description</label>
+                <input type="text" name="description" value="{{data.description}}" required id="id_description">
+            </p>
+
+            <p>
+                <img src="{{data.img_livre.url}}">
+                <label for="id_img_livre"></label>
+                <input type="file" name="img_livre" accept="image/*" id="id_img_livre">
+            </p>
+            {% csrf_token %}
+            
+            <!-- {{form.as_p}} --> 
+        
+        <button type="submit" class="btn-register-changes" form="form_modif_rep_demande_critique" name="btn_register_demandee" value ="{{critique_demandee.id}}">Envoyer</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock content %}
